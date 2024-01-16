@@ -158,7 +158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5167464635334358469}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -261,7 +261,7 @@ MonoBehaviour:
   playerUsername: {fileID: 5167464635645747944}
   BackgroundImage: {fileID: 7183771768515271479}
   highlightColor: {r: 0, g: 0.745283, b: 0.23336755, a: 1}
-  playerButton: {fileID: 0}
+  playerButton: {fileID: 5167464635334358489}
 --- !u!1 &5167464635645747926
 GameObject:
   m_ObjectHideFlags: 0

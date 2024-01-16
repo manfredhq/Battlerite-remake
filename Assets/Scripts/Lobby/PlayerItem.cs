@@ -17,10 +17,6 @@ public class PlayerItem : MonoBehaviour
     [SerializeField]
     private Button playerButton;
 
-    private void Start()
-    {
-        playerButton.enabled = false;
-    }
     public void SetPlayerInfos(Player player)
     {
         playerUsername.text = player.NickName;
@@ -34,6 +30,6 @@ public class PlayerItem : MonoBehaviour
 
     public void OnPlayerButtonClicked()
     {
-
+        CharacterSelectionPanel.ChangeCanvasStatus(this);
     }
 }
