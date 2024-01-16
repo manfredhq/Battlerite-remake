@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Steamworks;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,15 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     [SerializeField]
     private Button connectButton;
     private TMP_Text buttonText;
+
+    private void Update()
+    {
+        if (SteamManager.Initialized)
+        {
+            usernameInput.text = SteamFriends.GetPersonaName();
+            OnConnectButtonClicked();
+        }
+    }
 
     private void Awake()
     {
