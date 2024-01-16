@@ -13,6 +13,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     private TMP_InputField usernameInput;
     [SerializeField]
     private Button connectButton;
+    [SerializeField]
+    private TMP_Text connectingText;
     private TMP_Text buttonText;
 
     private void Update()
@@ -33,8 +35,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
         if(!string.IsNullOrWhiteSpace(usernameInput.text))
         {
+            connectingText.text = "Connecting...";
             PhotonNetwork.NickName = usernameInput.text;
-            buttonText.text = "Connecting...";
             PhotonNetwork.ConnectUsingSettings();
         }
     }
