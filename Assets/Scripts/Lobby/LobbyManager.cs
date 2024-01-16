@@ -25,6 +25,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private float timeBetweenListUpdate = .5f;
     private float nextListUpdateTime = 0;
 
+    private List<PlayerItem> playerItemList = new List<PlayerItem>();
+    [SerializeField]
+    private PlayerItem playerItemPrefab;
+    [SerializeField]
+    private Transform playerItemListParent;
+
     private void Start()
     {
         PhotonNetwork.JoinLobby();
@@ -46,6 +52,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyPanel.SetActive(false);
         roomPanel.SetActive(true);
         roomName.text = $"Room: {PhotonNetwork.CurrentRoom.Name}";
+        UpdatePlayerList();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -96,5 +103,40 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         PhotonNetwork.JoinLobby();
+    }
+
+    public void UpdatePlayerList()
+    {
+        foreach (var pi in playerItemList)
+        {
+            Destroy(pi.gameObject);
+        }
+        playerItemList.Clear();
+
+        if (PhotonNetwork.CurrentRoom == null) return;
+        foreach (KeyValuePair<int,Player> player in PhotonNetwork.CurrentRoom.Players)
+        {
+            PlayerItem temp = Instantiate(playerItemPrefab, playerItemListParent);
+            temp.SetPlayerInfos(player.Value);
+
+            if(player.Value == PhotonNetwork.LocalPlayer)
+            {
+                temp.ApplyLocalChanges();
+            }
+
+            playerItemList.Add(temp);
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        UpdatePlayerList();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        UpdatePlayerList();
     }
 }
