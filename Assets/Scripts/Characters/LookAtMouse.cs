@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,15 @@ using UnityEngine;
 
 public class LookAtMouse : MonoBehaviour
 {
-    public Camera cam;
+    private PhotonView photonView;
+    private void Awake()
+    {
+        photonView = GetComponentInParent<PhotonView>();
+        if (photonView.IsMine == false)
+        {
+            enabled = false;
+        }
+    }
     private void Update()
     {
         Vector3 p = Input.mousePosition;
