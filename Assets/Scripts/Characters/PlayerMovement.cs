@@ -15,11 +15,16 @@ public class PlayerMovement : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         if(photonView.IsMine == false)
         {
-            enabled = false;
+            rb.mass = 100000;
         }
     }
     private void FixedUpdate()
     {
+        if (photonView.IsMine == false)
+        {
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            return;
+        }
         Vector3 targetPos = transform.position;
         if (Input.GetKey(KeyCode.D))
         {
@@ -37,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         {
             targetPos += Vector3.back * speed * Time.deltaTime;
         }
-        rb.velocity = targetPos - transform.position ;
+        rb.velocity = targetPos - transform.position;
     }
 
 }
