@@ -42,7 +42,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (!string.IsNullOrEmpty(roomNameInput.text))
         {
-            PhotonNetwork.CreateRoom(roomNameInput.text); //Can add some room options
+            PhotonNetwork.CreateRoom(roomNameInput.text, new RoomOptions() { BroadcastPropsChangeToAll = true }) ; //Can add some room options
         }
     }
 

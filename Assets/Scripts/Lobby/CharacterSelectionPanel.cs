@@ -24,6 +24,7 @@ public class CharacterSelectionPanel : MonoBehaviour
     public void OnCharacterClicked(int characterID)
     {
         Debug.Log(characterID);
+        localPlayerItem.OnPlayerAvatarSelected(characterID);
         ChangeCanvasStatus(localPlayerItem);
     }
 }
