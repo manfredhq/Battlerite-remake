@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby-Scene.unity
     guid: f3fb682a9a05ece44890b27e678a161b
+  - enabled: 1
+    path: Assets/Scenes/Arenas/Japanese-Arena.unity
+    guid: 153cbf23678f78f4483527f16243e401
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
