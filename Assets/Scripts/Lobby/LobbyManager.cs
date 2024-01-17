@@ -31,11 +31,26 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private Transform playerItemListParent;
 
+    [SerializeField]
+    private Button playButton;
+
     private void Start()
     {
         PhotonNetwork.JoinLobby();
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            playButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            playButton.gameObject.SetActive(false);
+        }
     }
 
     public void OnClickCreateRoom()
@@ -138,5 +153,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
         UpdatePlayerList();
+    }
+
+    public void OnStartGameClicked()
+    {
+        PhotonNetwork.LoadLevel("Japanese-Arena");
     }
 }
