@@ -45,6 +45,14 @@ public class PlayerMovement : MonoBehaviour
             targetPos += Vector3.back * speed * Time.deltaTime;
         }
         rb.velocity = targetPos - transform.position;
+        if(rb.velocity != Vector3.zero)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
     }
 
 }
