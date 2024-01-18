@@ -10,13 +10,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
     private PhotonView photonView;
+    [SerializeField]
+    private Animator animator;
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
         if(photonView.IsMine == false)
         {
             rb.mass = 100000;
-        }
+        }        
     }
     private void FixedUpdate()
     {
