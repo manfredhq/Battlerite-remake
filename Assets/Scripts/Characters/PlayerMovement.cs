@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private PhotonView photonView;
     [SerializeField]
     private Animator animator;
+
+    [SerializeField]
+    private Transform rotTransform;
+
+    private Vector3 currentAnimVelocity = Vector3.zero;
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
@@ -45,13 +50,22 @@ public class PlayerMovement : MonoBehaviour
             targetPos += Vector3.back * speed * Time.deltaTime;
         }
         rb.velocity = targetPos - transform.position;
-        if(rb.velocity != Vector3.zero)
+        Vector3 localVel = rotTransform.rotation * rb.velocity ;
+        Vector3 targetVelocity = new Vector3(localVel.x, 0, localVel.z).normalized;
+
+        currentAnimVelocity = Vector3.Lerp(currentAnimVelocity, targetVelocity, Time.deltaTime * 10);
+
+        if (rb.velocity != Vector3.zero)
         {
             animator.SetBool("IsMoving", true);
+            animator.SetFloat("MovingX", currentAnimVelocity.x);
+            animator.SetFloat("MovingZ", currentAnimVelocity.z);
         }
         else
         {
             animator.SetBool("IsMoving", false);
+            animator.SetFloat("MovingX", 0);
+            animator.SetFloat("MovingZ", 0);
         }
     }
 
